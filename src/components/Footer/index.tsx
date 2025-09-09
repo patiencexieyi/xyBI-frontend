@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
       copyright="Powered by Ant Desgin"
       links={[
         {
-          key: 'Ant Design',
+          key: 'pro-ant-design',  // 修改为唯一 key
           title: 'Ant Design',
           href: 'https://pro.ant.design',
           blankTarget: true,
@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
+          key: 'ant-design',  // 修改为唯一 key
           title: 'Ant Design',
           href: 'https://ant.design',
           blankTarget: true,
