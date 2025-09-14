@@ -1,4 +1,3 @@
-import { outLogin } from "@/services/ant-design-pro/api";
 import {
   LogoutOutlined,
   SettingOutlined,
@@ -49,7 +48,6 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({
    * 退出登录，并且将当前的 url 保存
    */
   const loginOut = async () => {
-    await outLogin();
     const { search, pathname } = window.location;
     const urlParams = new URL(window.location.href).searchParams;
     const searchParams = new URLSearchParams({
