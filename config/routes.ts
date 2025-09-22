@@ -16,7 +16,18 @@ export default [
     ],
   },
   { path: "/", redirect: "/add_chart" },
-  { path: "/add_chart", name: "添加图表页", icon: "smile", component: "./addChart" },
+  {
+    path: "/add_chart",
+    name: "智能分析",
+    icon: "barChart",
+    component: "./addChart",
+  },
+  {
+    path: "/my_chart",
+    name: "我的图表",
+    icon: "pieChart",
+    component: "./myChart",
+  },
   {
     path: "/admin",
     name: "管理页",

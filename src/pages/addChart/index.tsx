@@ -1,13 +1,25 @@
 import { genChartByAiUsingPost } from "@/services/xybi/chartController";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
-import { Button, Form, Input, message, Select, Space, Upload } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  message,
+  Row,
+  Select,
+  Space,
+  Spin,
+  Divider,
+  Upload,
+} from "antd";
 import TextArea from "antd/es/input/TextArea";
 import ReactECharts from "echarts-for-react";
 import React, { useState } from "react";
 
 const addChart: React.FC = () => {
-
   const [fileList, setFileList] = useState<any[]>([]);
   const [chart, setChart] = useState<API.BiResponse>();
   const [option, setOption] = useState<any>();
@@ -20,6 +32,12 @@ const addChart: React.FC = () => {
       return;
     }
     setSubmitting(true);
+
+    // 如果提交了，把图表数据和图表代码清空掉，防止和之前提交的图表堆叠在一起
+    // 如果option清空了，组件就会触发重新渲染，就不会保留之前的历史记录
+    setChart(undefined);
+    setOption(undefined);
+
     // 看看能否得到用户的输入
     console.log("表单内容: ", values);
     // 对接后端，上传数据
@@ -88,60 +106,77 @@ const addChart: React.FC = () => {
 
   return (
     <div className="add-chart">
-      <Form
-        // 表单名称改为addChart
-        name="addChart"
-        onFinish={onFinish}
-        // 初始化数据啥都不填，为空
-        initialValues={{}}
-      >
-        <Form.Item
-          name="goal"
-          label="分析目标"
-          rules={[{ required: true, message: "请输入分析目标!" }]}
-        >
-          <TextArea placeholder="请输入你的分析需求，比如：分析网站用户的增长情况" />
-        </Form.Item>
-        <Form.Item name="name" label="图表名称">
-          <Input placeholder="请输入图表名称" />
-        </Form.Item>
-        <Form.Item name="chartType" label="图表类型">
-          <Select
-            options={[
-              { value: "折线图", label: "折线图" },
-              { value: "柱状图", label: "柱状图" },
-              { value: "堆叠图", label: "堆叠图" },
-              { value: "饼图", label: "饼图" },
-              { value: "雷达图", label: "雷达图" },
-            ]}
-          />
-        </Form.Item>
+      <Row gutter={24}>
+        <Col span={12}>
+          <Card title="智能分析">
+            <Form
+              // 表单名称改为addChart
+              name="addChart"
+              onFinish={onFinish}
+              // 初始化数据啥都不填，为空
+              initialValues={{}}
+            >
+              <Form.Item
+                name="goal"
+                label="分析目标"
+                rules={[{ required: true, message: "请输入分析目标!" }]}
+              >
+                <TextArea placeholder="请输入你的分析需求，比如：分析网站用户的增长情况" />
+              </Form.Item>
+              <Form.Item name="name" label="图表名称">
+                <Input placeholder="请输入图表名称" />
+              </Form.Item>
+              <Form.Item name="chartType" label="图表类型">
+                <Select
+                  options={[
+                    { value: "折线图", label: "折线图" },
+                    { value: "柱状图", label: "柱状图" },
+                    { value: "堆叠图", label: "堆叠图" },
+                    { value: "饼图", label: "饼图" },
+                    { value: "雷达图", label: "雷达图" },
+                  ]}
+                />
+              </Form.Item>
 
-        <Form.Item
-          name="file"
-          label="原始数据"
-          valuePropName="fileList"
-          getValueFromEvent={(e) => e.fileList}
-        >
-          <Upload {...uploadProps}>
-            <Button icon={<UploadOutlined />}>上传文件</Button>
-          </Upload>
-        </Form.Item>
+              <Form.Item
+                name="file"
+                label="原始数据"
+                valuePropName="fileList"
+                getValueFromEvent={(e) => e.fileList}
+              >
+                <Upload {...uploadProps}>
+                  <Button icon={<UploadOutlined />}>上传文件</Button>
+                </Upload>
+              </Form.Item>
 
-        <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-          <Space>
-            <Button type="primary" htmlType="submit" loading={submitting} disabled={submitting}>
-              智能分析
-            </Button>
-            <Button htmlType="reset">重置</Button>
-          </Space>
-        </Form.Item>
-      </Form>
-      <div>分析结论：{chart?.genResult}</div>
-      <div>
-        生成图表：
-        {option && <ReactECharts option={option} />}
-      </div>
+              <Form.Item wrapperCol={{ span: 16, offset: 4 }}>
+                <Space>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={submitting}
+                    disabled={submitting}
+                  >
+                    提交
+                  </Button>
+                  <Button htmlType="reset">重置</Button>
+                </Space>
+              </Form.Item>
+            </Form>
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card title="分析结论">
+            {chart?.genResult ?? <div>请先在左侧进行提交</div>}
+            <Spin spinning={submitting}/>
+          </Card>
+          <Divider/>
+          <Card title="可视化图表">
+            {option ? <ReactECharts option={option} /> : <div>请先在左侧进行提交</div>}
+            <Spin spinning={submitting}/>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };
