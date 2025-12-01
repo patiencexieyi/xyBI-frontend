@@ -15,6 +15,10 @@ const MyChartPage: React.FC = () => {
     current: 1,
     // 每页展示4条数据
     pageSize: 4,
+    //设置按创建时间排序
+    sortField: "createTime",
+    //进行继续排序
+    sortOrder: "desc",
   };
 
   const [searchParams, setSearchParams] = useState<API.ChartQueryRequest>({

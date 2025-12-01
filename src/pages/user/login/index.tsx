@@ -11,7 +11,6 @@ import { createStyles } from "antd-style";
 import React, { useState } from "react";
 import { flushSync } from "react-dom";
 import Settings from "../../../../config/defaultSettings";
-import { listFavourPostByPageUsingPost } from "@/services/xybi/postFavourController";
 import { error } from "console";
 const useStyles = createStyles(({ token }) => {
   return {
