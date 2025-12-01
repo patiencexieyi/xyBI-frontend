@@ -1,6 +1,6 @@
 import { listMyChartByPageUsingPost } from "@/services/xybi/chartController";
 import { useModel } from "@@/exports";
-import { Avatar, Card, List, message } from "antd";
+import { Avatar, Card, List, message, Result } from "antd";
 import Search from "antd/es/input/Search";
 import ReactECharts from "echarts-for-react";
 import React, { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ const MyChartPage: React.FC = () => {
   // 从全局状态中获取到当前登录的用户信息
   const { initialState } = useModel("@@initialState");
   const { currentUser } = initialState ?? {};
-  console.log(currentUser)
+  console.log(currentUser);
   const [chartList, setChartList] = useState<API.Chart[]>();
   const [total, setTotal] = useState<number>(0);
   // 加载状态，用来控制页面是否加载，默认正在加载
@@ -85,7 +85,7 @@ const MyChartPage: React.FC = () => {
           }}
         />
       </div>
-      <div className="margin-16"/>
+      <div className="margin-16" />
       <List
         /*
           栅格间隔16像素;xs屏幕<576px,栅格数1;
@@ -137,14 +137,75 @@ const MyChartPage: React.FC = () => {
                   item.chartType ? "图表类型：" + item.chartType : undefined
                 }
               />
-              {/* 在元素的下方增加16像素的外边距 */}
-              <div style={{ marginBottom: 16 }} />
-              <p>{"分析目标：" + item.goal}</p>
-              {/* 在元素的下方增加16像素的外边距 */}
-              <div style={{ marginBottom: 16 }} />
-              <ReactECharts
-                option={item.genChart && JSON.parse(item.genChart)}
-              />
+              <>
+                {
+                  // 当状态（item.status）为'wait'时，显示待生成的结果组件
+                  item.status === "wait" && (
+                    <>
+                      <Result
+                        // 状态为警告
+                        status="warning"
+                        title="待生成"
+                        // 子标题显示执行消息，如果执行消息为空，则显示'当前图表生成队列繁忙，请耐心等候'
+                        subTitle={
+                          item.execMessage ?? "当前图表生成队列繁忙，请耐心等候"
+                        }
+                      />
+                    </>
+                  )
+                }
+                {item.status === "running" && (
+                  <>
+                    <Result
+                      // 状态为信息
+                      status="info"
+                      title="图表生成中"
+                      // 子标题显示执行消息
+                      subTitle={item.execMessage}
+                    />
+                  </>
+                )}
+                {
+                  // 当状态（item.status）为'succeed'时，显示生成的图表
+                  item.status === "succeed" && (
+                    <>
+                      <div style={{ marginBottom: 16 }} />
+                      <p>{"分析目标：" + item.goal}</p>
+                      <div style={{ marginBottom: 16 }} />
+                      <ReactECharts
+                        option={item.genChart && JSON.parse(item.genChart)}
+                      />
+                      {item.genResult && (
+                        <div
+                          style={{
+                            maxHeight: "100px",
+                            overflowY: "auto",
+                            marginTop: "16px",
+                            padding: "8px",
+                            border: "1px solid #f0f0f0",
+                            borderRadius: "4px",
+                            backgroundColor: "#fafafa",
+                          }}
+                        >
+                          {"分析结论：" + item.genResult}
+                        </div>
+                      )}
+                    </>
+                  )
+                }
+                {
+                  // 当状态（item.status）为'failed'时，显示生成失败的结果组件
+                  item.status === "failed" && (
+                    <>
+                      <Result
+                        status="error"
+                        title="图表生成失败"
+                        subTitle={item.execMessage}
+                      />
+                    </>
+                  )
+                }
+              </>
             </Card>
           </List.Item>
         )}
@@ -152,4 +213,5 @@ const MyChartPage: React.FC = () => {
     </div>
   );
 };
+
 export default MyChartPage;

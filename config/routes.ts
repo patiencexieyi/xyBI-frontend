@@ -18,9 +18,15 @@ export default [
   { path: "/", redirect: "/add_chart" },
   {
     path: "/add_chart",
-    name: "智能分析",
+    name: "智能分析(同步)",
     icon: "barChart",
     component: "./addChart",
+  },
+  {
+    path: "/add_chart_async",
+    name: "智能分析(异步)",
+    icon: "barChart",
+    component: "./addChartAsync",
   },
   {
     path: "/my_chart",

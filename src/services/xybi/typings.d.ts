@@ -1,4 +1,9 @@
 declare namespace API {
+  type addUsingGETParams = {
+    /** name */
+    name?: string;
+  };
+
   type BaseResponseBiResponse_ = {
     code?: number;
     data?: BiResponse;
@@ -11,15 +16,15 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseChart_ = {
-    code?: number;
-    data?: Chart;
-    message?: string;
-  };
-
   type BaseResponseInt_ = {
     code?: number;
     data?: number;
+    message?: string;
+  };
+
+  type BaseResponseListMapStringObject_ = {
+    code?: number;
+    data?: MapStringObject_[];
     message?: string;
   };
 
@@ -99,12 +104,14 @@ declare namespace API {
     chartData?: string;
     chartType?: string;
     createTime?: string;
+    execMessage?: string;
     genChart?: string;
     genResult?: string;
     goal?: string;
     id?: number;
     isDelete?: number;
     name?: string;
+    status?: string;
     updateTime?: string;
     userId?: number;
   };
@@ -155,6 +162,12 @@ declare namespace API {
     id?: number;
   };
 
+  type genChartByAiAsyncUsingPOSTParams = {
+    chartType?: string;
+    goal?: string;
+    name?: string;
+  };
+
   type genChartByAiUsingPOSTParams = {
     chartType?: string;
     goal?: string;
@@ -190,6 +203,8 @@ declare namespace API {
     userProfile?: string;
     userRole?: string;
   };
+
+  type MapStringObject_ = true;
 
   type OrderItem = {
     asc?: boolean;

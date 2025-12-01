@@ -18,7 +18,10 @@ import {
 import TextArea from "antd/es/input/TextArea";
 import ReactECharts from "echarts-for-react";
 import React, { useState } from "react";
-
+/**
+ * 智能分析（同步）页面
+ * @returns 
+ */
 const addChart: React.FC = () => {
   const [fileList, setFileList] = useState<any[]>([]);
   const [chart, setChart] = useState<API.BiResponse>();
