@@ -62,18 +62,25 @@ const Login: React.FC = () => {
   /**
    * 登陆成功后，获取用户登录信息
    */
-  const fetchUserInfo = async () => {
-    //调用后端实际接口，获取到用户信息
-    const userInfo = await getLoginUserUsingGet();
+const fetchUserInfo = async () => {
+  try {
+    // 调用接口获取用户信息
+    const userInfoRes = await getLoginUserUsingGet();
+    // 提取 data 字段作为 currentUser 值
+    const userInfo = userInfoRes?.data;
+
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
           ...s,
-          currentUser: userInfo,
+          currentUser: userInfo, // 此处现在是正确的 LoginUserVO 类型
         }));
       });
     }
-  };
+  } catch (error) {
+    console.error("获取用户信息失败:", error);
+  }
+};
   const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
       // 登录
@@ -185,7 +192,4 @@ const Login: React.FC = () => {
   );
 };
 export default Login;
-function useEffect(arg0: () => void) {
-  throw new Error("Function not implemented.");
-}
 
