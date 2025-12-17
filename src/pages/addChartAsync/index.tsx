@@ -1,4 +1,5 @@
 import { genChartByAiAsyncUsingPost } from "@/services/xybi/chartController";
+import { genChartByAiAsyncMqUsingPost } from "@/services/xybi/chartController";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import {
@@ -42,7 +43,14 @@ const addChartAsync: React.FC = () => {
     try {
       // 检查是否有文件再进行上传
       if (values.file && values.file.length > 0) {
-        const res = await genChartByAiAsyncUsingPost(
+        // const res = await genChartByAiAsyncUsingPost(
+        //   params,
+        //   {},
+        //   values.file[0].originFileObj
+        // );
+        
+        //消息队列异步接口
+        const res = await genChartByAiAsyncMqUsingPost(
           params,
           {},
           values.file[0].originFileObj
