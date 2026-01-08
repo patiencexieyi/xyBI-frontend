@@ -34,6 +34,12 @@ export default [
     icon: "pieChart",
     component: "./myChart",
   },
+    {
+    path: "/predict",
+    name: "智能预测",
+    icon: "thunderbolt",
+    component: "./predict",
+  },
   {
     path: "/admin",
     name: "管理页",

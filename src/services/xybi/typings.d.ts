@@ -156,6 +156,13 @@ declare namespace API {
     name?: string;
   };
 
+  type get21DaysDataUsingGETParams = {
+    /** city */
+    city: string;
+    /** endDate */
+    endDate?: string;
+  };
+
   type getChartByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -225,6 +232,46 @@ declare namespace API {
     searchCount?: boolean;
     size?: number;
     total?: number;
+  };
+
+  type predict7DaysTrafficUsingPOSTParams = {
+    /** city */
+    city: string;
+    /** startDate */
+    startDate: string;
+  };
+
+  type TrafficHistory = {
+    city?: string;
+    createTime?: string;
+    date?: string;
+    day?: number;
+    dayOfWeek?: number;
+    dayOfYear?: number;
+    humidity?: number;
+    id?: number;
+    isHoliday?: number;
+    isHolidayAfter?: number;
+    isHolidayBefore?: number;
+    isMonthEnd?: number;
+    isMonthStart?: number;
+    isWeekend?: number;
+    isWeekendAfter?: number;
+    isWeekendBefore?: number;
+    month?: number;
+    precipitation?: number;
+    quarter?: number;
+    season?: number;
+    temperature?: number;
+    traffic3dTrend?: number;
+    traffic7dAvg?: number;
+    traffic7dMedian?: number;
+    traffic7dStd?: number;
+    trafficMonthPeakRatio?: number;
+    weatherType?: string;
+    weekOfYear?: number;
+    windPower?: number;
+    year?: number;
   };
 
   type uploadFileUsingPOSTParams = {

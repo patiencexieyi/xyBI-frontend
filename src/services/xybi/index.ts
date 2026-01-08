@@ -5,10 +5,12 @@
 import * as chartController from "./chartController";
 import * as fileController from "./fileController";
 import * as queueController from "./queueController";
+import * as trafficDataController from "./trafficDataController";
 import * as userController from "./userController";
 export default {
   chartController,
   fileController,
   queueController,
+  trafficDataController,
   userController,
 };
