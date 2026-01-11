@@ -215,9 +215,16 @@ const addChartAsync: React.FC = () => {
                   options={[
                     { value: "北京", label: "北京" },
                     { value: "上海", label: "上海" },
+                    { value: "广州", label: "广州" },
                     { value: "深圳", label: "深圳" },
                     { value: "杭州", label: "杭州" },
-                    { value: "南昌", label: "南昌" },
+                    { value: "成都", label: "成都" },
+                    { value: "重庆", label: "重庆" },
+                    { value: "武汉", label: "武汉" },
+                    { value: "西安", label: "西安" },
+                    { value: "南京", label: "南京" },
+                    { value: "郑州", label: "郑州" },
+                    { value: "长沙", label: "长沙" },
                   ]}
                 />
               </Form.Item>
@@ -272,9 +279,16 @@ const addChartAsync: React.FC = () => {
                   options={[
                     { value: "北京", label: "北京" },
                     { value: "上海", label: "上海" },
+                    { value: "广州", label: "广州" },
                     { value: "深圳", label: "深圳" },
                     { value: "杭州", label: "杭州" },
-                    { value: "南昌", label: "南昌" },
+                    { value: "成都", label: "成都" },
+                    { value: "重庆", label: "重庆" },
+                    { value: "武汉", label: "武汉" },
+                    { value: "西安", label: "西安" },
+                    { value: "南京", label: "南京" },
+                    { value: "郑州", label: "郑州" },
+                    { value: "长沙", label: "长沙" },
                   ]}
                 />
               </Form.Item>
